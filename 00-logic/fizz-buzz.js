@@ -1,18 +1,3 @@
-// const fizzbuzz = (num) => {
-//   for (let count = 1; count < num; count++) {
-//     if (num % 3 === 0 && num % 5 === 0) {
-//       console.log("Fizz buzz");
-//     } else if (num % 5 === 0) {
-//       console.log("buzz");
-//     } else if (num % 3 === 0) {
-//       console.log("fizz");
-//     } else {
-//       console.log(count);
-//     }
-//   }
-// };
-
-
 const fizzBuzz = (num) => {
   const array = []
   for (let index = 1; index <= num; index++) {
