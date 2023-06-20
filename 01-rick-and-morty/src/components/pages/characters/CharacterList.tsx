@@ -2,6 +2,7 @@ import type Character from "../../../interfaces/character";
 import CharacterItem from "./CharacterItem";
 
 import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from '@mui/material/Grid';
 
 interface Props {
   characters: Character[];

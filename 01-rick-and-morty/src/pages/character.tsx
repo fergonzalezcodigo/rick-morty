@@ -6,9 +6,13 @@ import PageLayout from "../components/layouts/PageLayout";
 import Loader from "../components/shared/Loader";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from '@mui/material/Grid';
 import { colors } from "../constants/themes";
 import Character from "../interfaces/character";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { FavoritesContext } from "../context/FavoritesContext";
+import { useContext } from "react";
 
 type Colors = {
   Alive: "success" | "error" | "warning" | "default" | "primary";
@@ -25,6 +29,9 @@ const chipColors: Colors = {
 type Data = Character & { episodes: string[] };
 
 function CharacterDetail() {
+  const { favorites, addFavorite, deleteFavorite } =
+    useContext(FavoritesContext);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState<Data>({
@@ -36,7 +43,14 @@ function CharacterDetail() {
     episodes: [],
   });
   const [episodes, setEpisodes] = useState<string[]>([]);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { id } = useParams();
+
+  useEffect(() => {
+    const newIsFavorite =
+    favorites.findIndex((favorite) => favorite.id == Number(id)) !== -1;
+    setIsFavorite(newIsFavorite);
+  }, [favorites, id]);
 
   useEffect(() => {
     const url = `https://rickandmortyapi.com/api/character/${id}`;
@@ -122,9 +136,29 @@ function CharacterDetail() {
               backgroundColor: "rgba(50,50,50, 0.1)",
             }}
           >
-            <Typography component="h1" variant="h2" textAlign="center" sx={{display: "flex", alignItems: "baseline"}}>
+            <Typography
+              component="h1"
+              variant="h2"
+              textAlign="center"
+              sx={{ display: "flex", alignItems: "baseline" }}
+            >
               {data.name}
-              <StarBorderIcon sx={{ fontSize: 40 }}/>
+              {isFavorite ? (
+                <StarIcon
+                  color="warning"
+                  onClick={() => {
+                    deleteFavorite(Number(id));
+                  }}
+                  sx={{ fontSize: 40 }}
+                />
+              ) : (
+                <StarBorderIcon
+                  onClick={() => {
+                    addFavorite(data);
+                  }}
+                  sx={{ fontSize: 40 }}
+                />
+              )}
             </Typography>
             <Typography>{data.species}</Typography>
 

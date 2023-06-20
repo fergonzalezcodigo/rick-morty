@@ -3,13 +3,16 @@ import { ThemeProvider } from "@mui/material";
 import Router from "./routes/Router";
 import darkTheme from "./themes/darkTheme";
 import "./App.css"
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Router />
-    </ThemeProvider>
+    <FavoritesProvider>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Router />
+      </ThemeProvider>
+    </FavoritesProvider>
   );
 }
 
