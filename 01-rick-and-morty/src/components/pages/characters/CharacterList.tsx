@@ -12,22 +12,20 @@ function CharacterList(props: Props): JSX.Element {
   const { characters } = props;
 
   return (
-    <>
-        <Grid container spacing={5}>
-          {characters.map(({ name, species, status, image, id }) => {
-            return (
-              <CharacterItem
-                key={id}
-                id={id}
-                image={image}
-                name={name}
-                species={species}
-                status={status}
-              />
-            );
-          })}
-        </Grid>
-    </>
+    <Grid container spacing={5}>
+      {characters.map(({ name, species, status, image, id }) => {
+        return (
+          <CharacterItem
+            key={id}
+            id={id}
+            image={image}
+            name={name}
+            species={species}
+            status={status}
+          />
+        );
+      })}
+    </Grid>
   );
 }
 

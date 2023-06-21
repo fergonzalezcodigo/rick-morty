@@ -1,10 +1,20 @@
-import { useContext } from "react"
-import { FavoritesContext } from "../context/FavoritesContext"
+import { useContext } from "react";
+import { Container } from "@mui/material";
+import { FavoritesContext } from "../context/FavoritesContext";
+import CharacterList from "../components/pages/characters/CharacterList";
+import PageLayout from "../components/layouts/PageLayout";
 
-export default function Favorites(){
+function Favorites() {
+
   const {favorites} = useContext(FavoritesContext)
-  console.log(favorites)
-  return(
-    <h1>Hola favorites</h1>
-  )
+  
+  return (
+    <PageLayout>
+      <Container>
+        <CharacterList characters={favorites} />
+      </Container>
+    </PageLayout>
+  );
 }
+
+export default Favorites
