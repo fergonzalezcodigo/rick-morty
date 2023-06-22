@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import Character from "../interfaces/character";
 
 interface FavoritesContextProps {  //Tipar
@@ -12,10 +12,11 @@ export const FavoritesContext = createContext<FavoritesContextProps>({ //Inicial
   addFavorite: () => {},
   deleteFavorite: () => {},
 });
+const favoritesLS = JSON.parse(localStorage.getItem('favorites') || '[]')
 
 export function FavoritesProvider({children}:React.PropsWithChildren){
 
-  const [favorites, setFavorites] = useState<Character[]>([])
+  const [favorites, setFavorites] = useState<Character[]>(favoritesLS)
 
   const addFavorite = (character:Character) => {
     setFavorites([...favorites, character])
@@ -23,6 +24,11 @@ export function FavoritesProvider({children}:React.PropsWithChildren){
   const deleteFavorite = (idCharacter: number) => {
     setFavorites(favorites.filter(character => character.id !== idCharacter))
   }
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites))
+  },[favorites])
+
   return(
     <FavoritesContext.Provider value={{favorites, addFavorite, deleteFavorite}}>
       {children}
