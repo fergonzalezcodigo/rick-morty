@@ -120,7 +120,16 @@ function CharacterDetail() {
   return (
     <PageLayout>
       <Grid container>
-        <Grid xs={2} xsOffset={5}>
+        <Grid
+          xs={8}
+          xsOffset={2}
+          sm={6}
+          smOffset={3}
+          md={4}
+          mdOffset={4}
+          lg={2}
+          lgOffset={5}
+        >
           <Box
             component="img"
             src={data.image}
@@ -131,7 +140,15 @@ function CharacterDetail() {
             }}
           />
         </Grid>
-        <Grid xs={4} xsOffset={4}>
+        <Grid
+          xs={12}
+          sm={10}
+          smOffset={1}
+          md={6}
+          mdOffset={3}
+          lg={4}
+          lgOffset={4}
+        >
           <Box
             p={4}
             m={4}
