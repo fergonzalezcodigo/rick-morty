@@ -6,9 +6,14 @@ import PageLayout from "../components/layouts/PageLayout";
 import Loader from "../components/shared/Loader";
 import Chip from "@mui/material/Chip";
 import Grid from "@mui/material/Unstable_Grid2";
+// import Grid from '@mui/material/Grid';
 import { colors } from "../constants/themes";
 import Character from "../interfaces/character";
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { FavoritesContext } from "../context/FavoritesContext";
+import { useContext } from "react";
+import Header from "../components/layouts/Header";
 
 type Colors = {
   Alive: "success" | "error" | "warning" | "default" | "primary";
@@ -25,6 +30,9 @@ const chipColors: Colors = {
 type Data = Character & { episodes: string[] };
 
 function CharacterDetail() {
+  const { favorites, addFavorite, deleteFavorite } =
+    useContext(FavoritesContext);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState<Data>({
@@ -36,7 +44,14 @@ function CharacterDetail() {
     episodes: [],
   });
   const [episodes, setEpisodes] = useState<string[]>([]);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { id } = useParams();
+
+  useEffect(() => {
+    const newIsFavorite =
+      favorites.findIndex((favorite) => favorite.id == Number(id)) !== -1;
+    setIsFavorite(newIsFavorite);
+  }, [favorites, id]);
 
   useEffect(() => {
     const url = `https://rickandmortyapi.com/api/character/${id}`;
@@ -79,22 +94,27 @@ function CharacterDetail() {
   }
   if (error) {
     return (
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        height="100vh"
-        sx={{
-          backgroundImage:
-            "url('https://i.pinimg.com/originals/4e/a7/fb/4ea7fb833c63a4ea0b0fb696c5919dd7.png')",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
-        <Typography component="h1" variant="h1" color="primary">
-          {error}
-        </Typography>
-      </Box>
+      <>
+        <Box
+          height="100vh"
+          sx={{
+            backgroundImage:
+              "url('https://i.pinimg.com/originals/4e/a7/fb/4ea7fb833c63a4ea0b0fb696c5919dd7.png')",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
+          <Header />
+          <Typography
+            component="h1"
+            variant="h1"
+            color="primary"
+            textAlign="center"
+          >
+            {error}
+          </Typography>
+        </Box>
+      </>
     );
   }
   return (
@@ -122,13 +142,29 @@ function CharacterDetail() {
               backgroundColor: "rgba(50,50,50, 0.1)",
             }}
           >
-            <Typography component="h1" variant="h2" textAlign="center" sx={{display: "flex", alignItems: "baseline"}}>
+            <Typography component="h1" variant="h2" textAlign="center">
               {data.name}
-              <StarBorderIcon sx={{ fontSize: 40 }}/>
+              <Box>
+                {isFavorite ? (
+                  <StarIcon
+                    color="warning"
+                    onClick={() => {
+                      deleteFavorite(Number(id));
+                    }}
+                    sx={{ fontSize: 40 }}
+                  />
+                ) : (
+                  <StarBorderIcon
+                    onClick={() => {
+                      addFavorite(data);
+                    }}
+                    sx={{ fontSize: 40 }}
+                  />
+                )}
+              </Box>
             </Typography>
-            <Typography>{data.species}</Typography>
-
-            <Box textAlign="center" marginTop="20px">
+            <Box display="flex" justifyContent="space-evenly">
+              <Typography textAlign="center">{data.species}</Typography>
               <Chip color={chipColors[data.status]} label={data.status} />
             </Box>
 
