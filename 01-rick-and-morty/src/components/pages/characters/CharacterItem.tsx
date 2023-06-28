@@ -5,7 +5,6 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Box, CardMedia } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-//import Grid from '@mui/material/Grid';
 import Chip from "@mui/material/Chip";
 import { Typography } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
@@ -33,8 +32,8 @@ function CharacterItem({
   const navigate = useNavigate();
 
   return (
-    <Grid xs={12} md={6} lg={3}  >
-      <Card
+    <Grid xs={12} md={6} lg={3}>
+      <Box
         sx={{
           display: "flex",
           border: `1px solid ${colors.primary}`,
@@ -43,61 +42,64 @@ function CharacterItem({
           backgroundColor: "rgba(50,50,50, 0.1)",
           "&:hover": {
             transform: "scale(1.05)",
-            border: `1px solid ${colors.secondary}`
+            border: `1px solid ${colors.secondary}`,
           },
         }}
         onClick={() => {
           navigate(`/character/${id}`);
         }}
       >
-        <CardContent sx={{ width: "50%" }}>
-          <Tooltip title={name} placement="top">
-            <Typography
-              textAlign="center"
-              marginTop="10px"
-              sx={{
-                color: "white",
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-                maxWidth: "100px",
-                fontSize: "13px"
-              }}
-            >
-              {name}
-            </Typography>
-          </Tooltip>
-          <Box textAlign="center" marginTop="20px">
-            <Chip color={chipColors[status]} label={status} />
+        <Grid xs={6}>
+          <Box
+            component="div"
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ height: "100%" }}
+          >
+            <Tooltip title={name} placement="top">
+              <Typography
+                textAlign="center"
+                sx={{
+                  color: "white",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  maxWidth: "100px",
+                  fontSize: "13px",
+                }}
+              >
+                {name}
+              </Typography>
+            </Tooltip>
+            <Chip color={chipColors[status]} label={status} sx={{margin: "10px"}}/>
+            <Tooltip title={species} placement="top">
+              <Typography
+                textAlign="center"
+                sx={{
+                  color: "white",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  maxWidth: "100px",
+                  fontSize: "13px",
+                }}
+              >
+                {species}
+              </Typography>
+            </Tooltip>
           </Box>
-          <Tooltip title={species} placement="top">
-            <Typography
-              textAlign="center"
-              marginTop="20px"
-              sx={{
-                color: "white",
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-                maxWidth: "100px",
-                fontSize: "13px"
-              }}
-            >
-              {species}
-            </Typography>
-          </Tooltip>
-        </CardContent>
-        <CardMedia
-        component="div"
-        sx={{
-          backgroundImage: `url(${image})`,
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          width: "100%",
-          height: "auto",
-        }}>
-        </CardMedia>
-      </Card>
+        </Grid>
+
+        <Grid xs={6} p={0}>
+          <Box
+            component="img"
+            src={image}
+            sx={{ width: "100%", height: "100%" }}
+          ></Box>
+        </Grid>
+      </Box>
     </Grid>
   );
 }

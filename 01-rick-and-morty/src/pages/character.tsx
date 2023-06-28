@@ -159,27 +159,35 @@ function CharacterDetail() {
               backgroundColor: "rgba(50,50,50, 0.1)",
             }}
           >
-            <Typography component="h1" variant="h2" textAlign="center">
-              {data.name}
-              <Box>
-                {isFavorite ? (
-                  <StarIcon
-                    color="warning"
-                    onClick={() => {
-                      deleteFavorite(Number(id));
-                    }}
-                    sx={{ fontSize: 40 }}
-                  />
-                ) : (
-                  <StarBorderIcon
-                    onClick={() => {
-                      addFavorite(data);
-                    }}
-                    sx={{ fontSize: 40 }}
-                  />
-                )}
-              </Box>
-            </Typography>
+            <Box textAlign="center">
+              <Typography
+                component="h1"
+                variant="h2"
+                sx={{
+                  overflowWrap: "break-word",
+                }}
+              >
+                {data.name}
+              </Typography>
+            </Box>
+            <Box textAlign="center">
+              {isFavorite ? (
+                <StarIcon
+                  color="warning"
+                  onClick={() => {
+                    deleteFavorite(Number(id));
+                  }}
+                  sx={{ fontSize: 40 }}
+                />
+              ) : (
+                <StarBorderIcon
+                  onClick={() => {
+                    addFavorite(data);
+                  }}
+                  sx={{ fontSize: 40 }}
+                />
+              )}
+            </Box>
             <Box display="flex" justifyContent="space-evenly">
               <Typography textAlign="center">{data.species}</Typography>
               <Chip color={chipColors[data.status]} label={data.status} />

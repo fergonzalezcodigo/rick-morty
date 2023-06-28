@@ -7,7 +7,8 @@ function Header() {
     <>
       <Grid container>
         <Grid
-          xs={12}
+          xs={10}
+          xsOffset={1}
           sm={8}
           smOffset={2}
           md={6}
