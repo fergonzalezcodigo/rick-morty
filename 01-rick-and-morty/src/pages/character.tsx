@@ -120,7 +120,16 @@ function CharacterDetail() {
   return (
     <PageLayout>
       <Grid container>
-        <Grid xs={2} xsOffset={5}>
+        <Grid
+          xs={8}
+          xsOffset={2}
+          sm={6}
+          smOffset={3}
+          md={4}
+          mdOffset={4}
+          lg={2}
+          lgOffset={5}
+        >
           <Box
             component="img"
             src={data.image}
@@ -131,7 +140,15 @@ function CharacterDetail() {
             }}
           />
         </Grid>
-        <Grid xs={4} xsOffset={4}>
+        <Grid
+          xs={12}
+          sm={10}
+          smOffset={1}
+          md={6}
+          mdOffset={3}
+          lg={4}
+          lgOffset={4}
+        >
           <Box
             p={4}
             m={4}
@@ -142,27 +159,35 @@ function CharacterDetail() {
               backgroundColor: "rgba(50,50,50, 0.1)",
             }}
           >
-            <Typography component="h1" variant="h2" textAlign="center">
-              {data.name}
-              <Box>
-                {isFavorite ? (
-                  <StarIcon
-                    color="warning"
-                    onClick={() => {
-                      deleteFavorite(Number(id));
-                    }}
-                    sx={{ fontSize: 40 }}
-                  />
-                ) : (
-                  <StarBorderIcon
-                    onClick={() => {
-                      addFavorite(data);
-                    }}
-                    sx={{ fontSize: 40 }}
-                  />
-                )}
-              </Box>
-            </Typography>
+            <Box textAlign="center">
+              <Typography
+                component="h1"
+                variant="h2"
+                sx={{
+                  overflowWrap: "break-word",
+                }}
+              >
+                {data.name}
+              </Typography>
+            </Box>
+            <Box textAlign="center">
+              {isFavorite ? (
+                <StarIcon
+                  color="warning"
+                  onClick={() => {
+                    deleteFavorite(Number(id));
+                  }}
+                  sx={{ fontSize: 40 }}
+                />
+              ) : (
+                <StarBorderIcon
+                  onClick={() => {
+                    addFavorite(data);
+                  }}
+                  sx={{ fontSize: 40 }}
+                />
+              )}
+            </Box>
             <Box display="flex" justifyContent="space-evenly">
               <Typography textAlign="center">{data.species}</Typography>
               <Chip color={chipColors[data.status]} label={data.status} />
