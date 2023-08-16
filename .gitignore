@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+01-rick-and-morty
+.storybookgit 
 
 # Editor directories and files
 .vscode/*

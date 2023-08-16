@@ -1,9 +1,6 @@
 import type Character from "../../../interfaces/character";
-import { useNavigate } from "react-router-dom";
 // import styled from "@emotion/styled";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import { Box, CardMedia } from "@mui/material";
+import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import Chip from "@mui/material/Chip";
 import { Typography } from "@mui/material";
@@ -22,14 +19,17 @@ const chipColors: Colors = {
   unknown: "warning",
 };
 
+interface Props extends Character{
+  onClick: (id:number) => void
+}
+
 function CharacterItem({
-  id,
   image,
   name,
   species,
   status,
-}: Character): JSX.Element {
-  const navigate = useNavigate();
+}: Props): JSX.Element {
+  // const navigate = useNavigate();
 
   return (
     <Grid xs={12} md={6} lg={3}>
@@ -45,9 +45,9 @@ function CharacterItem({
             border: `1px solid ${colors.secondary}`,
           },
         }}
-        onClick={() => {
-          navigate(`/character/${id}`);
-        }}
+        // onClick={() => {
+        //   navigate(`/character/${id}`);
+        // }}
       >
         <Grid xs={6}>
           <Box
