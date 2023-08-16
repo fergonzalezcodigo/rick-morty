@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import type Character from "../../../interfaces/character";
 import CharacterItem from "./CharacterItem";
 
@@ -11,6 +12,12 @@ interface Props {
 function CharacterList(props: Props): JSX.Element {
   const { characters } = props;
 
+  const navigate = useNavigate()
+
+  const handleClick = (id: number) => {
+    navigate(`/character/${id}`)
+  }
+
   return (
     <Grid container spacing={5}>
       {characters.map(({ name, species, status, image, id }) => {
@@ -18,6 +25,7 @@ function CharacterList(props: Props): JSX.Element {
           <CharacterItem
             key={id}
             id={id}
+            onClick={handleClick}
             image={image}
             name={name}
             species={species}

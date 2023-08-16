@@ -24,13 +24,13 @@ interface Props extends Character{
 }
 
 function CharacterItem({
+  id,
   image,
   name,
   species,
   status,
+  onClick
 }: Props): JSX.Element {
-  // const navigate = useNavigate();
-
   return (
     <Grid xs={12} md={6} lg={3}>
       <Box
@@ -45,9 +45,9 @@ function CharacterItem({
             border: `1px solid ${colors.secondary}`,
           },
         }}
-        // onClick={() => {
-        //   navigate(`/character/${id}`);
-        // }}
+        onClick={() => {
+          onClick(id);
+        }}
       >
         <Grid xs={6}>
           <Box
